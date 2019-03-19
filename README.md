@@ -1,6 +1,6 @@
 # Project Title
 
-User microservice
+Trade microservice
 
 ## Getting Started
 
@@ -11,7 +11,6 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-* Redis
 * NodeJs
 * Yarn or NPM
 * Mocha (for testing)
@@ -24,9 +23,7 @@ A step by step series of examples that tell you how to get a development env run
 ```
 * Run NPM install or yarn install on your machine
 * type knex migrate:latest // this will create the sqlite dev tables
-* type knex seed:run // this will fill the tables with test data
-* Run Redis locally on port 6379 (default)
-* type node ./index.js to run the server
+* type yarn start or npm start to run the server
 ```
 
 an example of getting some data out of the system or using it.
@@ -40,7 +37,6 @@ an example of getting some data out of the system or using it.
 
 ```
 * cd into the project directory
-* run redis
 * type mocha
 ```
 
