@@ -1,7 +1,9 @@
+---
 applications:
 - name: user_microservice
   routes:
-- route: usermicroservice4578.mybluemix.net
+  - route: usermicroservice4578.mybluemix.net
   memory: 256M
   services:
   - user-redis
+  - user-db

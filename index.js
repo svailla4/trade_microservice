@@ -1,17 +1,24 @@
 'use strict';
 
-require('dotenv').config();
 const Knex = require('knex');
 const { Model } = require('objection');
 const Hapi = require('hapi');
 const knex = Knex(require('./knexfile').development);
 const cfenv = require("cfenv");
-const appEnv = cfenv.getAppEnv();
-const services = appEnv.services;
-const redis_services = services["databases-for-redis"];
-const credentials = redis_services!=null? redis_services[0].credentials: 'redis://localhost:6379';
 Model.knex(knex);
 
+
+let vcapLocal;
+try {
+  vcapLocal = require('./vcap-local.json');
+  console.log("Loaded local VCAP");
+} catch (e) { 
+     console.log(e)
+}
+
+const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
+
+const appEnv = cfenv.getAppEnv(appEnvOpts);
 
 const server = Hapi.server({
     port: appEnv.port,
@@ -21,53 +28,8 @@ const server = Hapi.server({
     }
 });
 
-
-const validate = async (decoded, request, h) => {
-    try {
-        const client = request.redis.client;
-
-        let res = await client.get(decoded.id);
-
-        let session;
-        if (res) {
-            session = JSON.parse(res);
-        }
-        else {
-            return { isValid: false }
-        }
-        if (session.valid === false || new Date().getTime() * 60 * 1000 <= session.exp) { // ensure that the token hasn't expired
-            return { isValid: false }
-        } else {
-            session.exp = new Date().getTime()+30 *60*1000; // time + 30 minutes
-            await client.set(decoded.id, JSON.stringify(session));
-            return { isValid: true }
-        }
-
-    } catch (err) {
-        throw Boom.badRequest(err)
-    }
-}
-
-
-
 const init = async () => {
-    await server.register(require('hapi-auth-jwt2'))
-    await server.register(
-        {
-            plugin: require('hapi-redis2'),
-            options: {
-                settings: credentials,
-                decorate:true
-            }
-        });
-
-    server.auth.strategy('jwt', 'jwt', {
-            key: process.env.SECRET,
-            verifyOptions: { algorithms: ['HS256'] },
-            validate: validate
-        });
-
-    server.route(require('./routes/users_routes'))
+    server.route(require('./routes/trades_routes'))
 
     await server.start();
     console.log(`Server running at: ${server.info.uri}`);
