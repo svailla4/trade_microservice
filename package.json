@@ -10,20 +10,15 @@
   "author": "Stephane Vaillancourt",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.0",
     "boom": "^7.2.0",
     "cfenv": "^1.1.0",
     "dotenv": "^6.2.0",
     "hapi": "^17.5.4",
-    "hapi-auth-basic": "^5.0.0",
-    "hapi-auth-jwt2": "^8.1.0",
     "joi": "^14.3.0",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
-    "nodemailer": "^4.7.0",
     "objection": "^1.2.6",
-    "sqlite3": "^4.0.6",
-    "uuid": "^3.3.2"
+    "sqlite3": "^4.0.6"
   },
   "devDependencies": {
     "chai": "^4.1.2",
