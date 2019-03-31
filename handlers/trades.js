@@ -27,7 +27,7 @@ exports.deleteTrade = async function (request, h) {
             throw Boom.badRequest("Nothing was deleted")
         }
 
-        return numDeleted
+        return h.response(numDeleted)
 
     } catch (err) {
         throw Boom.badRequest(err);
