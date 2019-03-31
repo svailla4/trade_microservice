@@ -34,3 +34,32 @@ exports.deleteTrade = async function (request, h) {
     }
 }
 
+exports.insertTrade = async function (request, h) {
+    try {
+        const trade = await Trades
+        .query()
+        .insert({
+            id: request.payload.id,
+            price: request.payload.price,
+            size: request.payload.size,
+            timestamp: request.payload.timestamp,
+            exchange_code: request.payload.exchangeCode,
+            suspiscious: request.payload.suspiscious,
+            company_code: request.payload.companyCode
+        })
+
+        if(trade instanceof Trades){
+            return h.response(trade)
+        }
+        else{
+            throw Boom.badRequest("Failed to insert, check your parameters")
+        }
+
+    } catch (err) {
+        throw Boom.badRequest(err);
+    }
+}
+
+exports.health = function (request, h) {
+    return h.response({status: 200});
+}

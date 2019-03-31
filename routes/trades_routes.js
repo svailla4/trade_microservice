@@ -15,5 +15,10 @@ module.exports = [
         method: 'POST',
         path: '/trades/insert',
         handler: Trades.insertTrade
+    },
+    {
+        method: 'GET',
+        path: '/health',
+        handler: Trades.health
     }
 ]

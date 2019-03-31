@@ -14,7 +14,7 @@ class Trades extends Model {
                 id: { type: 'integer' },
                 price: { type: 'float' },
                 size:{type:'integer'},
-                time:{type:'unexisting-type'},
+                timestamp:{type:'unexisting-type'},
                 exchange_code:{type:'string'},
                 suspiscious:{type:'string'},
                 company_code:{type:'string'}
