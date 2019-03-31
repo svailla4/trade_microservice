@@ -11,24 +11,30 @@ exports.up = function (knex, Promise) {
             table.integer("size").notNullable();
             table.string('suspiscious')
 
-            table.string("company_code").notNullable();
-            table.foreign('company_code').references('code').inTable('companies');
+            table.string("company_code").notNullable()
+            .references('code').inTable('companies')
+            .onDelete('CASCADE');
 
-            table.string('exchange_code').notNullable();
-            table.foreign('exchange_code').references('code').inTable('exchanges');
+            table.string('exchange_code').notNullable()
+            .references('code').inTable('exchanges')
+            .onDelete('CASCADE');
 
             table.datetime('timestamp',6);
         })
 
         .createTable('sales_conditions', table=>{
-            table.integer('trade_id').primary();
-            table.foreign('trade_id').references('id').inTable('trades');
+            table.integer('trade_id').primary()
+            .references('id').inTable('trades')
+            .onDelete('CASCADE');
+            
             table.integer('code').primary();
         })
 
         .createTable('sales_conditions_descriptions', table=>{
-            table.string('code').primary();
-            table.foreign('code').references('code').inTable('sales_conditions');
+            table.string('code').primary()
+            .references('code').inTable('sales_conditions')
+            .onDelete('CASCADE');
+
             table.string('description');
         })
 
