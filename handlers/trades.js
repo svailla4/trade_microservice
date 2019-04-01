@@ -161,6 +161,27 @@ exports.todaysTrades = async function (request, h) {
     }
 }
 
+exports.mostTradedCompanyOnExchange = async function (request, h) {
+    try {
+        const exchange = await Exchanges
+        .query()
+        .findOne({code: request.query.code});
+
+        const mostTraded = await exchange
+        .$relatedQuery('trades')
+        .select('company_code')
+        .count('company_code as count')
+        .groupBy('company_code')
+        .orderBy('count', 'desc')
+        .first();
+
+        return h.response(mostTraded);
+
+    } catch (err) {
+        throw Boom.badRequest(err);
+    }
+}
+
 
 exports.health = function (request, h) {
     return h.response({ status: 200 });
