@@ -40,5 +40,10 @@ module.exports = [
         method: 'GET',
         path:'/trades/exchange',
         handler: Trades.tradesOnExchange
+    },
+    {
+        method: 'GET',
+        path:'/trades/today',
+        handler: Trades.todaysTrades
     }
 ]

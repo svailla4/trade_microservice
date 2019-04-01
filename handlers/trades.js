@@ -134,6 +134,34 @@ exports.tradesOnExchange = async function (request, h) {
     }
 }
 
+exports.todaysTrades = async function (request, h) {
+    try {
+
+        const actualDate = new Date();
+        
+        const startDate = new Date(actualDate.getFullYear()
+        ,actualDate.getMonth()
+        ,actualDate.getDate()
+        ,0,0,0);
+
+        const endDate =  new Date(actualDate.getFullYear()
+        ,actualDate.getMonth()
+        ,actualDate.getDate()
+        ,23,59,59);
+
+        const trades = await Trades
+            .query()
+            .where('timestamp', '<', startDate)
+            .andWhere('timestamp','>', endDate);
+
+        return h.response(trades)
+
+    } catch (err) {
+        throw Boom.badRequest(err);
+    }
+}
+
+
 exports.health = function (request, h) {
     return h.response({ status: 200 });
 }
