@@ -1,4 +1,5 @@
 const Trades = require('../models/Trades')
+const Companies = require('../models/Companies')
 const Boom = require('boom')
 
 exports.fetchTrades = async function (request, h) {
@@ -53,6 +54,28 @@ exports.insertTrade = async function (request, h) {
         }
         else{
             throw Boom.badRequest("Failed to insert, check your parameters")
+        }
+
+    } catch (err) {
+        throw Boom.badRequest(err);
+    }
+}
+
+exports.companyTrades = async function (request, h) {
+    try {
+
+        const company = await Companies
+        .query()
+        .findOne({code: request.query.code});
+
+        const companyTrades = await company
+        .$relatedQuery('trades');
+
+        if(companyTrades[0] instanceof Trades){
+            return h.response(companyTrades)
+        }
+        else{
+            throw Boom.badRequest("Failed to find any trades")
         }
 
     } catch (err) {
