@@ -1,10 +1,12 @@
 const Trades = require('../models/Trades')
 const Companies = require('../models/Companies')
+const Exchanges = require('../models/Exchanges')
 const Boom = require('boom')
 
 exports.fetchTrades = async function (request, h) {
     try {
-        const trades = await Trades.query();
+        const trades = await Trades.query()
+        .orderBy('timestamp');
 
         if (trades[0] instanceof Trades || trades.length == 0) {
             return h.response(trades);
@@ -69,7 +71,8 @@ exports.companyTrades = async function (request, h) {
             .findOne({ code: request.query.code });
 
         const companyTrades = await company
-            .$relatedQuery('trades');
+            .$relatedQuery('trades')
+            .orderBy('timestamp');
 
         return h.response(companyTrades)
     } catch (err) {
@@ -90,6 +93,41 @@ exports.companyTradeRecent = async function (request, h) {
             .first();
 
         return h.response(companyTrades)
+
+    } catch (err) {
+        throw Boom.badRequest(err);
+    }
+}
+
+exports.companyAverageStockPrice = async function (request, h) {
+    try {
+
+        const company = await Companies
+            .query()
+            .findOne({ code: request.query.code });
+
+        const averageStockPrice = await company
+            .$relatedQuery('trades')
+            .avg('price as average')
+
+        return h.response(averageStockPrice)
+
+    } catch (err) {
+        throw Boom.badRequest(err);
+    }
+}
+
+exports.tradesOnExchange = async function (request, h) {
+    try {
+
+        const exchange = await Exchanges
+            .query()
+            .findOne({code: request.query.code});
+
+        const trades = await exchange
+            .$relatedQuery('trades')
+
+        return h.response(trades)
 
     } catch (err) {
         throw Boom.badRequest(err);
