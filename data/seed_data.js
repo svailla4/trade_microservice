@@ -35,7 +35,7 @@ exports.trades =[
 		suspiscious: 'no',
 		company_code: 'CIBC',
 		exchange_code: 'TSX',
-		timestamp: new Date()
+		timestamp: new Date() + 30
 	}
 ]
 

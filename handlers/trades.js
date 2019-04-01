@@ -6,7 +6,7 @@ exports.fetchTrades = async function (request, h) {
     try {
         const trades = await Trades.query();
 
-        if (trades[0] instanceof Trades || trades.length ==0) {
+        if (trades[0] instanceof Trades || trades.length == 0) {
             return h.response(trades);
         } else {
             throw Boom.badRequest("Failed to fetch trades")
@@ -20,11 +20,11 @@ exports.fetchTrades = async function (request, h) {
 exports.deleteTrade = async function (request, h) {
     try {
         const numDeleted = await Trades
-        .query()
-        .delete()
-        .where('id', '=', request.payload.id);
+            .query()
+            .delete()
+            .where('id', '=', request.payload.id);
 
-        if(numDeleted===0){
+        if (numDeleted === 0) {
             throw Boom.badRequest("Nothing was deleted")
         }
 
@@ -38,21 +38,21 @@ exports.deleteTrade = async function (request, h) {
 exports.insertTrade = async function (request, h) {
     try {
         const trade = await Trades
-        .query()
-        .insert({
-            id: request.payload.id,
-            price: request.payload.price,
-            size: request.payload.size,
-            timestamp: request.payload.timestamp,
-            exchange_code: request.payload.exchangeCode,
-            suspiscious: request.payload.suspiscious,
-            company_code: request.payload.companyCode
-        })
+            .query()
+            .insert({
+                id: request.payload.id,
+                price: request.payload.price,
+                size: request.payload.size,
+                timestamp: request.payload.timestamp,
+                exchange_code: request.payload.exchangeCode,
+                suspiscious: request.payload.suspiscious,
+                company_code: request.payload.companyCode
+            })
 
-        if(trade instanceof Trades){
+        if (trade instanceof Trades) {
             return h.response(trade)
         }
-        else{
+        else {
             throw Boom.badRequest("Failed to insert, check your parameters")
         }
 
@@ -65,18 +65,31 @@ exports.companyTrades = async function (request, h) {
     try {
 
         const company = await Companies
-        .query()
-        .findOne({code: request.query.code});
+            .query()
+            .findOne({ code: request.query.code });
 
         const companyTrades = await company
-        .$relatedQuery('trades');
+            .$relatedQuery('trades');
 
-        if(companyTrades[0] instanceof Trades){
-            return h.response(companyTrades)
-        }
-        else{
-            throw Boom.badRequest("Failed to find any trades")
-        }
+        return h.response(companyTrades)
+    } catch (err) {
+        throw Boom.badRequest(err);
+    }
+}
+
+exports.companyTradeRecent = async function (request, h) {
+    try {
+
+        const company = await Companies
+            .query()
+            .findOne({ code: request.query.code });
+
+        const companyTrades = await company
+            .$relatedQuery('trades')
+            .orderBy('timestamp')
+            .first();
+
+        return h.response(companyTrades)
 
     } catch (err) {
         throw Boom.badRequest(err);
@@ -84,5 +97,5 @@ exports.companyTrades = async function (request, h) {
 }
 
 exports.health = function (request, h) {
-    return h.response({status: 200});
+    return h.response({ status: 200 });
 }
