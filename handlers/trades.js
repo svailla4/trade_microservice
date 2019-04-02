@@ -151,8 +151,8 @@ exports.todaysTrades = async function (request, h) {
 
         const trades = await Trades
             .query()
-            .where('timestamp', '<', startDate)
-            .andWhere('timestamp','>', endDate);
+            .where('timestamp', '>=', startDate)
+            .andWhere('timestamp','<=', endDate);
 
         return h.response(trades)
 
