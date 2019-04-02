@@ -14,7 +14,7 @@ exports.trades =[
 		id: 1,
 		price: 23.45,
 		size: 100,
-		suspiscious: 'yes',
+		suspicious: 'yes',
 		company_code: 'CIBC',
 		exchange_code: 'TSX',
 		timestamp: '2016-06-22 19:10:25-07'
@@ -23,7 +23,7 @@ exports.trades =[
 		id: 2,
 		price: 23.45,
 		size: 100,
-		suspiscious: 'yes',
+		suspicious: 'yes',
 		company_code: 'TD',
 		exchange_code: 'TSX',
 		timestamp: '2016-06-22 19:10:25-07'
@@ -32,7 +32,7 @@ exports.trades =[
 		id: 3,
 		price: 211.45,
 		size: 2323,
-		suspiscious: 'no',
+		suspicious: 'no',
 		company_code: 'CIBC',
 		exchange_code: 'TSX',
 		timestamp: '2016-06-22 19:10:25-07'

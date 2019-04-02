@@ -14,7 +14,7 @@ exports.up = function (knex, Promise) {
             table.increments('id').primary();
             table.float("price", 2).notNullable();
             table.integer("size").notNullable();
-            table.string('suspiscious')
+            table.string('suspicious')
 
             table.string("company_code").notNullable()
             .references('code').inTable('companies')
