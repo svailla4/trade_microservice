@@ -8,13 +8,11 @@ exports.seed = async function (knex, Promise) {
 	knex('trades').del(),
 	knex('exchanges').del(),
 	knex('companies').del()
-])
+]);
 
-  await Promise.all([
-	knex('companies').insert(data.companies),
-	knex('exchanges').insert(data.exchanges),
-	knex('trades').insert(data.trades),
-	knex('sales_conditions').insert(data.salesConditions),
-	knex('sales_conditions_descriptions').insert(data.salesConditionsDescriptions)
-  ])
+  await knex('companies').insert(data.companies);
+  await knex('exchanges').insert(data.exchanges);
+  await knex('trades').insert(data.trades);
+  await knex('sales_conditions_descriptions').insert(data.salesConditionsDescriptions);
+  await knex('sales_conditions').insert(data.salesConditions);
 };

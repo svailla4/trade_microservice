@@ -27,21 +27,20 @@ exports.up = function (knex, Promise) {
             table.datetime('timestamp',6);
         })
 
+        .createTable('sales_conditions_descriptions', table=>{
+            table.string('code').primary();
+
+            table.string('description');
+        })
+
         .createTable('sales_conditions', table=>{
             table.increments('id').primary();
             table.integer('trade_id')
             .references('id').inTable('trades')
             .onDelete('CASCADE');
             
-            table.string('code');
-        })
-
-        .createTable('sales_conditions_descriptions', table=>{
-            table.integer('sales_conditions_id').primary()
-            .references('id').inTable('sales_conditions')
-            .onDelete('CASCADE');
-
-            table.string('description');
+            table.string('code').references('code').inTable('sales_conditions_descriptions')
+                .onDelete('CASCADE');
         })
 };
 

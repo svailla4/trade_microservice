@@ -63,7 +63,7 @@ exports.salesConditions = [
 
 exports.salesConditionsDescriptions =[
 	{
-        sales_conditions_id: 1,
+        code: 'A',
 		description: 'Accepted'
 	}
 ]
