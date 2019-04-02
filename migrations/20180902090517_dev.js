@@ -23,14 +23,16 @@ exports.up = function (knex, Promise) {
         })
 
         .createTable('sales_conditions', table=>{
-            table.integer('trade_id').primary()
+            table.increments('id').primary()
+            table.integer('trade_id')
             .references('id').inTable('trades')
             .onDelete('CASCADE');
             
-            table.integer('code').primary();
+            table.integer('code')
         })
 
         .createTable('sales_conditions_descriptions', table=>{
+
             table.string('code').primary()
             .references('code').inTable('sales_conditions')
             .onDelete('CASCADE');
