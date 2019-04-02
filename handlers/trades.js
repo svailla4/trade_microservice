@@ -134,10 +134,10 @@ exports.tradesOnExchange = async function (request, h) {
     }
 }
 
-exports.todaysTrades = async function (request, h) {
+exports.dateTrades = async function (request, h) {
     try {
 
-        const actualDate = new Date();
+        const actualDate = request.payload.date;
         
         const startDate = new Date(actualDate.getFullYear()
         ,actualDate.getMonth()
