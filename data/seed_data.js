@@ -17,7 +17,7 @@ exports.trades =[
 		suspiscious: 'yes',
 		company_code: 'CIBC',
 		exchange_code: 'TSX',
-		timestamp: new Date()
+		timestamp: '2016-06-22 19:10:25-07'
 	},
 	{
 		id: 2,
@@ -26,7 +26,7 @@ exports.trades =[
 		suspiscious: 'yes',
 		company_code: 'TD',
 		exchange_code: 'TSX',
-		timestamp: new Date()
+		timestamp: '2016-06-22 19:10:25-07'
 	},
 	{
 		id: 3,
@@ -35,7 +35,7 @@ exports.trades =[
 		suspiscious: 'no',
 		company_code: 'CIBC',
 		exchange_code: 'TSX',
-		timestamp: new Date() + 30
+		timestamp: '2016-06-22 19:10:25-07'
 	}
 ]
 
@@ -63,7 +63,7 @@ exports.salesConditions = [
 
 exports.salesConditionsDescriptions =[
 	{
-		code: 'A',
+        sales_conditions_id: 1,
 		description: 'Accepted'
 	}
 ]

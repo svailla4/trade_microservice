@@ -3,7 +3,7 @@
 const Knex = require('knex');
 const { Model } = require('objection');
 const Hapi = require('hapi');
-const knex = Knex(require('./knexfile').development);
+const knex = Knex(require('./knexfile').localDatabase);
 const cfenv = require("cfenv");
 Model.knex(knex);
 

@@ -5,6 +5,11 @@ exports.up = function (knex, Promise) {
             table.string('name').notNullable();
         })
 
+        .createTable('exchanges', table=>{
+            table.string('code').primary();
+            table.string('description').notNullable();
+        })
+
         .createTable('trades', table=>{
             table.increments('id').primary();
             table.float("price", 2).notNullable();
@@ -23,24 +28,20 @@ exports.up = function (knex, Promise) {
         })
 
         .createTable('sales_conditions', table=>{
-            table.integer('trade_id').primary()
+            table.increments('id').primary();
+            table.integer('trade_id')
             .references('id').inTable('trades')
             .onDelete('CASCADE');
             
-            table.integer('code').primary();
+            table.string('code');
         })
 
         .createTable('sales_conditions_descriptions', table=>{
-            table.string('code').primary()
-            .references('code').inTable('sales_conditions')
+            table.integer('sales_conditions_id').primary()
+            .references('id').inTable('sales_conditions')
             .onDelete('CASCADE');
 
             table.string('description');
-        })
-
-        .createTable('exchanges', table=>{
-            table.string('code').primary();
-            table.string('description').notNullable();
         })
 };
 
