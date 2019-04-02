@@ -1,0 +1,7 @@
+FROM postgres
+
+ENV POSTGRES_USER admin
+ENV POSTGRES_DB trade_database
+ENV POSTGRES_PASSWORD password
+
+EXPOSE 5432
