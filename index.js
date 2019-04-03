@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 const Knex = require('knex');
 const { Model } = require('objection');
 const Hapi = require('hapi');
@@ -21,7 +22,7 @@ const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
 const appEnv = cfenv.getAppEnv(appEnvOpts);
 
 const server = Hapi.server({
-    port: appEnv.port,
+    port: 8080,
     host: appEnv.host,
     routes: {
         cors: true

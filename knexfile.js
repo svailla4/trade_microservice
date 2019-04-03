@@ -43,20 +43,22 @@ module.exports = {
 
 
   production: {
-    client: 'postgresql',
-    connection: {
-      host: 'fc8e189a-bb4f-466e-b459-e9e3ae845efd.b8a5e798d2d04f2e860e54e5d042c915.databases.appdomain.cloud',
-      database: 'ibmclouddb',
-      user:     'ibm_cloud_e2b0ec4f_f2ec_4805_8e8f_acebc5e8741d',
-      password: '7a1049a0fc0643930b674a4e29ccfcf59e6cd10449b1c130813d471f140cce16'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
+      client: 'postgresql',
+      connection: {
+          database: 'ibmclouddb',
+          user:     'ibm_cloud_09cb9d52_4a26_444c_bcb2_560856309522',
+          password: `116abb081c0985a150206b8fe80016e11b0dfb3ab6ce0aa145ca54197077fd80`,
+          host: '247273a3-7f0a-44b0-874e-9caf02cd06a7.b2b5a92ee2df47d58bad0fa448c15585.databases.appdomain.cloud',
+          port: '32733',
+          ssl: true
+      },
+      pool: {
+          min: 2,
+          max: 10
+      },
+      migrations: {
+          tableName: 'knex_migrations'
+      }
   }
 
 };

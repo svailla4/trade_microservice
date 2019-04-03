@@ -1,15 +1,16 @@
 const Trades = require('../handlers/trades')
 const Joi = require('joi');
+const basePath = process.env.BASE_PATH || '';
 
 module.exports = [
     {
         method: 'GET',
-        path: '/trades',
+        path: `${basePath}/trades`,
         handler: Trades.fetchTrades,
     },
     {
         method: 'DELETE',
-        path: '/trades/delete',
+        path: `${basePath}/trades/delete`,
         handler: Trades.deleteTrade,
         options:{
             validate:{
@@ -21,7 +22,7 @@ module.exports = [
     },
     {
         method: 'POST',
-        path: '/trades/insert',
+        path: `${basePath}/trades/insert`,
         handler: Trades.insertTrade,
         options:{
             validate:{
@@ -39,12 +40,12 @@ module.exports = [
     },
     {
         method: 'GET',
-        path: '/health',
+        path: `${basePath}/health`,
         handler: Trades.health
     },
     {
         method: 'GET',
-        path: '/trades/company',
+        path: `${basePath}/trades/company`,
         handler: Trades.companyTrades,
         options:{
             validate:{
@@ -56,7 +57,7 @@ module.exports = [
     },
     {
         method: 'GET',
-        path:'/trades/company/recent',
+        path:`${basePath}/trades/company/recent`,
         handler: Trades.companyTradeRecent,
         options:{
             validate:{
@@ -68,7 +69,7 @@ module.exports = [
     },
     {
         method: 'GET',
-        path:'/trades/company/average',
+        path:`${basePath}/trades/company/average`,
         handler: Trades.companyAverageStockPrice,
         options:{
             validate:{
@@ -80,7 +81,7 @@ module.exports = [
     },
     {
         method: 'GET',
-        path:'/trades/exchange',
+        path:`${basePath}/trades/exchange`,
         handler: Trades.tradesOnExchange,
         options:{
             validate:{
@@ -92,7 +93,7 @@ module.exports = [
     },
     {
         method: 'POST',
-        path:'/trades/date',
+        path:`${basePath}/trades/date`,
         handler: Trades.dateTrades,
         options:{
             validate:{
@@ -104,7 +105,7 @@ module.exports = [
     },
     {
         method: 'GET',
-        path:'/trades/exchange/mostTrades',
+        path:`${basePath}/trades/exchange/mostTrades`,
         handler: Trades.mostTradedCompanyOnExchange,
         options:{
             validate:{
